@@ -1,0 +1,75 @@
+import mongoose, { Schema } from "mongoose"
+import jwt from "jsonwebtoken"
+import bcrypt from "bcrypt"
+
+const UserSchema=new Schema(
+    {
+        username:{
+            type:String,
+            required:true
+            
+        },
+        email:{
+            type:String,
+            required:true,
+            unique:true 
+        },
+        password:{
+            type:String,
+            required:true
+        },
+        refreshToken:{
+            type:String,
+            
+        },
+        tasks:[{
+            type:Schema.Types.ObjectId,
+            ref:"Task"
+        }]
+    },
+    {
+        timestamps:true
+    }
+)
+
+UserSchema.pre("save",async function(){
+    if(!this.isModified)return
+    this.password=await bcrypt.hash(this.password,10)
+})
+
+
+UserSchema.methods.validatePassword=async function(password){
+    return await bcrypt.compare(password,this.password)
+}
+
+
+UserSchema.methods.generateAccessToken=async function(){
+    return jwt.sign(
+        {
+            _id:this._id,
+            username:this.username,
+            email:this.email
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        {
+            expiresIn:process.env.ACCESS_TOKEN_EXPIRY
+        }
+    )
+}
+
+
+UserSchema.methods.generateRefreshToken=async function(){
+    return jwt.sign(
+        {
+            _id:this._id,
+            
+        },
+        process.env.REFRESH_TOKEN_SECRET,
+        {
+            expiresIn:process.env.REFRESH_TOKEN_EXPIRY
+        }
+    )
+}
+
+
+export const User=mongoose.model("User",UserSchema)

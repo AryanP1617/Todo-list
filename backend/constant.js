@@ -1,3 +1,3 @@
-const DB_NAME=todo-list
+const DB_NAME="todo-list"
 
 export { DB_NAME }
