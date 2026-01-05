@@ -14,6 +14,10 @@ const taskSchema=new Schema(
         },
         priority:{
             type:Number
+        },
+        owner:{
+            type:Schema.Types.ObjectId,
+            ref:"user"
         }
     },
 

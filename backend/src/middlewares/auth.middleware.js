@@ -10,11 +10,11 @@ const verifyJwt=asyncHandler(async(req,res,next)=>{
      if(!token)
          throw new ApiError(400,"Unauthorised access!! ")
      
-     const decodedToken=await jwt.verify(token,process.env.REFRESH_TOKEN_SECRET)
+     const decodedToken=await jwt.verify(token,process.env.ACCESS_TOKEN_SECRET)
      if(!decodedToken)
          throw new ApiError(400,"Token is expired")
  
-     user=await User.findById(decodedToken._id)
+     const user=await User.findById(decodedToken._id)
      if(!user)
          throw new ApiError(400,"User is not present")
  

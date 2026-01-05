@@ -3,6 +3,8 @@ import { ApiResponse } from "../utils/ApiResponse.js"
 import { ApiError } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { validator } from "../utils/validateFields.js"
+import mongoose, { Mongoose } from "mongoose";
+import jwt from "jsonwebtoken"
 
 const registerUser=asyncHandler(async(req,res)=>{
     const{ username,email,password }=req.body
@@ -66,7 +68,142 @@ const loginUser=asyncHandler(async(req,res)=>{
     )
 })
 
+const logoutUser=asyncHandler(async(req,res)=>{
+    await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $set:{
+                refreshToken:null
+            }            
+        },
+        {
+            new:true
+        }
+    )
+    
+    const options={
+        httpOnly:true,
+        secure:true
+    }
+
+    return res.status(200)
+    .clearCookie("accessToken",options)
+    .clearCookie("refreshToken",options)
+    .json(
+        new ApiResponse(200,{},"User logged out successfully")
+    )
+})
+
+const updateUsername=asyncHandler(async(req,res)=>{
+    const {username}=req.body
+    const user=req.user
+
+    if(username===user.username)
+        throw new ApiError(400,"Username is already used")
+
+
+    const changedUser=await User.findByIdAndUpdate(user._id,
+        {
+            $set:{
+                username:username
+            }
+        },
+        {
+            new:true
+        }
+    ).select("-password -refreshToken")
+
+    return res.status(200).json(
+        new ApiResponse(200,changedUser,"The username is changed successfully")
+    )
+})
+
+const refreshAccessToken=asyncHandler(async(req,res)=>{     
+    
+    const token=req.cookies.refreshToken||req.body.refreshToken
+    if(!token)
+    {
+        throw new ApiError(401,"Unauthorized request")
+    }
+
+    const decodedToken=jwt.verify(token,process.env.REFRESH_TOKEN_SECRET)
+
+    const user=await User.findById(decodedToken?.id)
+    if(!user)
+        throw new ApiError(401,"Unauthorised request")
+
+    if(token !==user?.refreshToken)
+        throw new ApiError(400,"Unauthorised access")
+
+    const options={
+        httpOnly:true,
+        secure:true
+    }
+
+    const {accessToken,newRefreshToken}=generateAccessRefreshToken(user._id)
+    return res.status(200).cookie("accessToken",accessToken,options).cookie("refreshToken",newRefreshToken,options).json(
+        new ApiResponse(200,
+            {
+                accessToken,
+                "refreshToken":newRefreshToken,
+            },
+            "Access token refreshed"
+        )
+    )
+})
+
+const getUserDetails=asyncHandler(async(req,res)=>{
+    user=await User.findById(req?.user._id).select("-password -refreshToken")
+    if(!user)
+        throw ApiError(400,"User does not exist")
+
+    return res.status(200).json(
+        new ApiResponse(200,user,"Sending user data")
+    )
+})
+
+const getUserTasks=asyncHandler(async(req,res)=>{
+        
+    const user=await User.aggregate([
+        {
+            $match:{
+                _id:new mongoose.Types.ObjectId(req.user?._id)
+            }
+        },
+        {
+            $lookup:{
+                from:"tasks",
+                localField:"tasks",
+                foreignField:"_id",
+                as:"tasks"
+            }
+        },
+        {
+            $addFields:{
+                taskCount:{
+                    $size:"$tasks"
+                }
+            }
+        },
+        {
+            $project:{
+                tasks:1,
+                taskCount:1
+            }
+        }
+    ])  
+
+    return res.status(200).json(
+        new ApiResponse(200,user[0],"User task fetched succesfully")
+    )
+})
+
 export {
     registerUser,
-    loginUser
+    loginUser,
+    logoutUser,
+    updateUsername,
+    refreshAccessToken,
+    getUserDetails,
+    getUserTasks
 }
