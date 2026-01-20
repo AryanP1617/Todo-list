@@ -18,7 +18,7 @@ import { task_router } from "./src/routes/task.router.js"
 
 
 //-----------------------------// 
-app.use('/users',user_router)
-app.use('/tasks',task_router)
+app.use('/api/users',user_router)
+app.use('/api/tasks',task_router)
 
 export {app}

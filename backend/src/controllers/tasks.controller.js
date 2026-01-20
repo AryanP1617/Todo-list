@@ -89,7 +89,7 @@ const updateDetails=asyncHandler(async(req,res)=>{
 const getTasks=asyncHandler(async(req,res)=>{
     const {taskId}=req.params
     const task=await Task.findOne({
-        owner:req.user?.id,
+        owner:req.user?._id,
         _id:taskId
     })
 
@@ -104,5 +104,6 @@ export {
     addTask,
     deleteTask,
     toggleTask,
-    updateDetails
+    updateDetails,
+    getTasks
 }
