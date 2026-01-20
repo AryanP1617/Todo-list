@@ -1,0 +1,71 @@
+#popupOverlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+#popupContent{
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    gap: 5  0px;
+    padding: 20px;
+}
+
+#popupText{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#redButton{
+    appearance: none;
+    width: 13px;
+    height: 13px;
+    
+    border-radius: 50%;   
+    outline: none;
+    cursor: pointer;
+    background-color: rgba(242, 2, 2, 0.778);
+}
+
+#redButton:checked{
+    background-color: red;
+}
+
+#greenButton{
+    appearance: none;
+    width: 13px;
+    height: 13px;
+    
+    border-radius: 50%;   
+    outline: none;
+    cursor: pointer;
+    background-color: rgba(0, 128, 0, 0.767);
+}
+
+#greenButton:checked{
+    background-color: green;
+}
+
+#yellowButton{
+    appearance: none;
+    width: 13px;
+    height: 13px;
+    
+    border-radius: 50%;   
+    outline: none;
+    cursor: pointer;
+    background-color: rgba(255, 255, 0, 0.763);
+}
+
+#yellowButton:checked{
+    background-color: rgb(205, 205, 22);
+}

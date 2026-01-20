@@ -1,0 +1,46 @@
+#taskScreen{
+    overflow-y: auto;
+}
+
+#taskListContainer{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    align-items: center;
+    
+
+}
+#taskBox{
+    display: flex;
+    
+    border-radius: 5px;
+    justify-content: space-between;
+    min-width: 300px;
+    gap:5px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;    
+}
+
+#taskBox:hover{
+    
+    transform: scale(1.01);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+}
+
+#taskData,#taskInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#priorityButton{
+    appearance: none;
+    width: 13px;
+    height: 13px;
+    
+    border-radius: 50%;   
+    outline: none;
+    cursor: pointer;
+    
+}
