@@ -8,25 +8,29 @@ const api = axios.create({
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
-    
+
     const originalRequest = error.config;
+
+    if (!error.response) {
+      return Promise.reject(error);
+    }
 
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
-        console.log("The token has expired zzzzz !!!")
-        const response=await axios.post('/api/users/refresh-token');
-        console.log(response)
-        return api(originalRequest);
-        
-      } catch (refreshError) {
+        await axios.post('/api/users/refresh-token', {}, {
+          withCredentials: true
+        });
 
+        return api(originalRequest);
+
+      } catch (refreshError) {
         window.location.href = '/login';
-        console.log("The refreshToken has somehow expired this is the error",refreshError)
         return Promise.reject(refreshError);
       }
     }
+
     return Promise.reject(error);
   }
 );
