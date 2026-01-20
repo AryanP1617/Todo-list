@@ -31,10 +31,12 @@ const addTask=asyncHandler(async(req,res)=>{
 
 const deleteTask=asyncHandler(async(req,res)=>{
     const {taskId}=req.params
-
+    console.log("Begin delete task")
     const deletedTask=await Task.findByIdAndDelete(taskId)
+    
     if(!deletedTask)
     {
+        console.log("Id could not be found ...")
         throw new ApiError(400,"Id could not be found!!")
     }
 
