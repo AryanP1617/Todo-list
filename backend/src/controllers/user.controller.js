@@ -127,7 +127,7 @@ const refreshAccessToken=asyncHandler(async(req,res)=>{
         throw new ApiError(401,"Unauthorized request")
     }
 
-    const decodedToken=jwt.verify(token,process.env.REFRESH_TOKEN_SECRET)
+    const decodedToken=await jwt.verify(token,process.env.REFRESH_TOKEN_SECRET)
 
     const user=await User.findById(decodedToken?.id)
     if(!user)
@@ -141,7 +141,7 @@ const refreshAccessToken=asyncHandler(async(req,res)=>{
         secure:true
     }
 
-    const {accessToken,newRefreshToken}=generateAccessRefreshToken(user._id)
+    const {accessToken,newRefreshToken}=await generateAccessRefreshToken(user._id)
     return res.status(200).cookie("accessToken",accessToken,options).cookie("refreshToken",newRefreshToken,options).json(
         new ApiResponse(200,
             {
