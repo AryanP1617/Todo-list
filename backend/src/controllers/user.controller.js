@@ -124,7 +124,7 @@ const refreshAccessToken=asyncHandler(async(req,res)=>{
     const token=req.cookies.refreshToken||req.body.refreshToken
     if(!token)
     {
-        throw new ApiError(401,"Unauthorized request as cookie cannot be found")
+        throw new ApiError(401,"Unauthorized request")
     }
 
     const decodedToken=await jwt.verify(token,process.env.REFRESH_TOKEN_SECRET)
@@ -141,7 +141,7 @@ const refreshAccessToken=asyncHandler(async(req,res)=>{
         secure:true
     }
 
-    const {accessToken,newRefreshToken:refreshToken}=await generateAccessRefreshToken(user._id)
+    const {accessToken,newRefreshToken}=await generateAccessRefreshToken(user._id)
     return res.status(200).cookie("accessToken",accessToken,options).cookie("refreshToken",newRefreshToken,options).json(
         new ApiResponse(200,
             {
