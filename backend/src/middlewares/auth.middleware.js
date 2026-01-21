@@ -20,9 +20,10 @@ const verifyJwt=asyncHandler(async(req,res,next)=>{
          throw new ApiError(400,"User is not present")
  
      req.user=user
-     res = next()
-     console.log("next execution complete...")
-     return res
+    //  res = next()
+    //  console.log("next execution complete...")
+    //  return res
+    next()
    } catch (error) {
         throw new ApiError(500,error?.message || "Token could not be verified")    
    }
