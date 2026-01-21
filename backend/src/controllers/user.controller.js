@@ -46,7 +46,7 @@ const loginUser=asyncHandler(async(req,res)=>{
     if(!user)
         throw new ApiError(400,"User is invalid")
 
-    const correct_password=user.validatePassword(password)
+    const correct_password=await user.validatePassword(password)
     if(!correct_password)
         throw new ApiError(400,"Password is incorrect")
 
@@ -156,9 +156,9 @@ const refreshAccessToken=asyncHandler(async(req,res)=>{
 })
 
 const getUserDetails=asyncHandler(async(req,res)=>{
-    user=await User.findById(req?.user._id).select("-password -refreshToken")
+    const user=await User.findById(req?.user._id).select("-password -refreshToken")
     if(!user)
-        throw ApiError(400,"User does not exist")
+        throw new ApiError(400,"User does not exist")
 
     return res.status(200).json(
         new ApiResponse(200,user,"Sending user data")
