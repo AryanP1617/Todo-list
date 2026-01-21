@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-
-import api from "../utils/refresh.js";
+import axios from "axios";
 
 
 function Login() {
@@ -30,14 +29,7 @@ function Login() {
         setLoading(true)
         setError("")
         try {   
-            const response=await api.post('/api/users/login',details,
-                {
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-
-                }
-            )
+            const response=await axios.post('https://todo-list-7226.onrender.com/api/users/login',details)
             console.log(response.data)
             navigate('/home')
         } catch (error) {
