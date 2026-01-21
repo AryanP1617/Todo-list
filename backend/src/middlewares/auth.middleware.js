@@ -28,7 +28,7 @@ const verifyJwt=asyncHandler(async(req,res,next)=>{
  
      req.user=user
      console.log("Auth is perfect")
-     next()
+      return next()
      
 
    } catch (error) {

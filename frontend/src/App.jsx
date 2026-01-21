@@ -3,10 +3,8 @@ import Login from "./components/Login.jsx"
 import Register from "./components/Register.jsx"
 import Home from "./components/Home.jsx"
 import Landing from "./components/Landing.jsx"
-import { useTokenRefresher } from "./utils/refreshTokenService.jsx"
 
 function App(){
-  useTokenRefresher()
   return(
       <Router>
         <Routes>

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-import axios from "axios"
+import api from "../utils/refresh.js"
 import './Register.css'
 import  registerLogo from '../assets/todoListImage.jpg'
 function Register()
@@ -25,7 +25,7 @@ function Register()
         e.preventDefault()
         try {
             console.log("Button clicked!!")
-            await axios.post('https://todo-list-7226.onrender.com/api/users/register',details)
+            await api.post('/api/users/register',details)
             console.log("Succesfully registered!!!",details)
             navigate('/login')
         } catch (error) {
