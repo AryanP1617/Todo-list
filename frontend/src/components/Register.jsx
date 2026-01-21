@@ -25,7 +25,7 @@ function Register()
         e.preventDefault()
         try {
             console.log("Button clicked!!")
-            await axios.post('/api/users/register',details)
+            await axios.post('https://todo-list-7226.onrender.com/api/users/register',details)
             console.log("Succesfully registered!!!",details)
             navigate('/login')
         } catch (error) {
