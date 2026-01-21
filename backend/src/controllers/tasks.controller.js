@@ -5,7 +5,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
 
 const addTask=asyncHandler(async(req,res)=>{
-    
+    console.log("The next is invoked!!!")
     const {title,description,priority}=req.body
     const task=await Task.create({
         title:title.toLowerCase(),
