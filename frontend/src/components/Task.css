@@ -11,8 +11,7 @@
 
 }
 #taskBox{
-    display: flex;
-    
+    display: flex;    
     border-radius: 5px;
     justify-content: space-between;
     min-width: 300px;

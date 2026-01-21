@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import api from "../utils/refresh.js";
+
 
 
 function Login() {
@@ -30,7 +30,7 @@ function Login() {
         setLoading(true)
         setError("")
         try {   
-            const response=await api.post('/api/users/login',details,
+            const response=await axios.post('/api/users/login',details,
                 {
                     headers: {
                         "Content-Type": "application/json"

@@ -19,7 +19,7 @@
         
         const fetchTask=async()=>{
             try {
-                const response=await api.get('/api/users/get-user-task')
+                const response=await axios.get('/api/users/get-user-task')
                 setTasks(response.data.data.tasks)
             } catch (error) {
                 console.log(error)
@@ -55,7 +55,7 @@
         const saveTasks=async(task)=>{
             try{
                 console.log(task)
-                const response=await api.post('/api/tasks/addTask',task)
+                const response=await axios.post('/api/tasks/addTask',task)
                 fetchTask()
 
             }
@@ -93,7 +93,7 @@
             try{
                 await Promise.all(
                     selectedTaskIds.map((taskId)=>
-                    api.delete(`/api/tasks/deleteTask/${taskId}`)
+                    axios.delete(`/api/tasks/deleteTask/${taskId}`)
                     )
                 )
                 
