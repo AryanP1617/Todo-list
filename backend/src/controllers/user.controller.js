@@ -64,7 +64,7 @@ const loginUser=asyncHandler(async(req,res)=>{
     .cookie("accessToken",accessToken,options)
     .cookie("refreshToken",refreshToken,options)
     .json(
-        new ApiResponse(200,{loggedInUser},'User is successfully logged in')
+        new ApiResponse(200,loggedInUser,'User is successfully logged in')
     )
 })
 
@@ -124,13 +124,12 @@ const refreshAccessToken=asyncHandler(async(req,res)=>{
     const token=req.cookies.refreshToken||req.body.refreshToken
     if(!token)
     {
-        console.log("Token could not be found in cookie")
         throw new ApiError(401,"Unauthorized request as cookie cannot be found")
     }
 
     const decodedToken=await jwt.verify(token,process.env.REFRESH_TOKEN_SECRET)
 
-    const user=await User.findById(decodedToken?._id)
+    const user=await User.findById(decodedToken?.id)
     if(!user)
         throw new ApiError(401,"Unauthorised request")
 

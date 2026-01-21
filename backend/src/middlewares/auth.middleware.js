@@ -8,19 +8,11 @@ const verifyJwt=asyncHandler(async(req,res,next)=>{
    try {
      const token=req.cookies?.accessToken||req?.header("Authorization")?.replace("Bearer ","")
      if(!token)
-     {
-        console.log("The token does not exist at all")
-        throw new ApiError(400,"Unauthorised access!! ")
-     }
-         
+         throw new ApiError(400,"Unauthorised access!! ")
      
      const decodedToken=await jwt.verify(token,process.env.ACCESS_TOKEN_SECRET)
      if(!decodedToken)
-        {
-            console.log("Token could not be found")
-            throw new ApiError(401,"Token is expired")
-        }        
-         
+         throw new ApiError(401,"Token is expired")
      
      const user=await User.findById(decodedToken._id)
      if(!user)
@@ -28,7 +20,7 @@ const verifyJwt=asyncHandler(async(req,res,next)=>{
  
      req.user=user
      console.log("Auth is perfect")
-     next()
+     return next()
      
 
    } catch (error) {
