@@ -19,7 +19,6 @@ api.interceptors.response.use(
         const response=await axios.post('/api/users/refresh-token', {}, { 
           withCredentials: true 
         });
-        console.log(response)
 
         return api(originalRequest);
       } catch (refreshError) {
