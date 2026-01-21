@@ -19,12 +19,12 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        await api.post('/api/users/refresh-token')
+        await axios.post('https://todo-list-7226.onrender.com/api/users/refresh-token')
 
         return api(originalRequest);
 
       } catch (refreshError) {
-        window.location.href = '/login';
+        // window.location.href = '/login';
         return Promise.reject(refreshError);
       }
     }
