@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: '/',
+  baseURL: 'https://todo-list-7226.onrender.com',
   withCredentials: true,
 });
 
@@ -19,9 +19,7 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        await axios.post('/api/users/refresh-token', {}, {
-          withCredentials: true
-        });
+        await axios.post('https://todo-list-7226.onrender.com/api/users/refresh-token')
 
         return api(originalRequest);
 
