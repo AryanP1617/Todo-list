@@ -6,7 +6,7 @@ import Landing from "./components/Landing.jsx"
 import { useTokenRefresher } from "./utils/refreshTokenService.jsx"
 
 function App(){
-  
+  useTokenRefresher()
   return(
       <Router>
         <Routes>
