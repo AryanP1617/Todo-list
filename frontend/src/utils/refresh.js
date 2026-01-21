@@ -15,8 +15,8 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        console.log("The token has expired zzzzz !!!")
-        const response=await axios.post('/api/users/refresh-token', {}, { 
+        console.log("The token has expired !!!")
+        await axios.post('/api/users/refresh-token', {}, { 
           withCredentials: true 
         });
 
