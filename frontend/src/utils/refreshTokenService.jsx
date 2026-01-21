@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { refreshAccessToken } from "./refresh.js";
 
 export const useTokenRefresher = () => {
-  useEffect(() => {
+  
     
     refreshAccessToken();
 
@@ -12,5 +12,5 @@ export const useTokenRefresher = () => {
     }, 14 * 60 * 1000); 
 
     return () => clearInterval(interval);
-  }, []);
+ 
 };
