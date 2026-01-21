@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken"
 import { asyncHandler } from '../utils/asyncHandler.js'
 import { ApiError } from '../utils/ApiError.js'
 import { User } from '../models/user.model.js'
-import { refreshAccessToken } from "../controllers/user.controller.js"
 
 
 const verifyJwt=asyncHandler(async(req,res,next)=>{
@@ -19,7 +18,6 @@ const verifyJwt=asyncHandler(async(req,res,next)=>{
      if(!decodedToken)
         {
             console.log("Token could not be found")
-            refreshAccessToken()
             throw new ApiError(401,"Token is expired")
         }        
          
@@ -30,7 +28,7 @@ const verifyJwt=asyncHandler(async(req,res,next)=>{
  
      req.user=user
      console.log("Auth is perfect")
-      next()
+     next()
      
 
    } catch (error) {
