@@ -1,10 +1,13 @@
 import axios from 'axios'
 
-// Set up axios with credentials
-axios.defaults.withCredentials = true
+// Create axios instance
+const axiosInstance = axios.create({
+    baseURL: 'https://todo-list-7226.onrender.com/api',
+    withCredentials: true
+})
 
 // Set up response interceptor for token refresh
-axios.interceptors.response.use(
+axiosInstance.interceptors.response.use(
     response => response,
     async error => {
         const originalRequest = error.config
@@ -14,10 +17,10 @@ axios.interceptors.response.use(
 
             try {
                 // Call refresh token endpoint
-                await axios.post('https://todo-list-7226.onrender.com/api/users/refresh-token')
+                await axiosInstance.post('/users/refresh-token')
 
                 // Retry the original request with new token
-                return axios(originalRequest)
+                return axiosInstance(originalRequest)
             } catch (refreshError) {
                 // Redirect to login if refresh fails
                 window.location.href = '/login'
@@ -29,4 +32,4 @@ axios.interceptors.response.use(
     }
 )
 
-export default axios
+export default axiosInstance

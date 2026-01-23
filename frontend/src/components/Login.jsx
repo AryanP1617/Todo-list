@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-import axios from "../utils/refresh.js";
-
-
+import axiosInstance from "../utils/refresh.js";
 
 function Login() {
     
@@ -30,15 +28,7 @@ function Login() {
         setLoading(true)
         setError("")
         try {   
-            const response=await axios.post('https://todo-list-7226.onrender.com/api/users/login',details,
-                {
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    withCredentials:true
-
-                }
-            )
+            const response=await axiosInstance.post('/users/login',details)
             console.log(response.data)
             navigate('/home')
         } catch (error) {
@@ -70,4 +60,4 @@ function Login() {
     )
 }
 
-export default Login;   
+export default Login;
