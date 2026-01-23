@@ -25,7 +25,7 @@ const verifyJwt=asyncHandler(async(req,res,next)=>{
     //  return res
     next()
    } catch (error) {
-        throw new ApiError(500,error?.message || "Token could not be verified")    
+        throw new ApiError(401,error?.message || "Token could not be verified")    
    }
 })  
 

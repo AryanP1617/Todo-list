@@ -17,7 +17,7 @@ axiosInstance.interceptors.response.use(
 
             try {
                 // Call refresh token endpoint
-                await axios.post('/users/refresh-token')
+                await axios.post('https://todo-list-7226.onrender.com/api/users/refresh-token')
 
                 // Retry the original request with new token
                 return axiosInstance(originalRequest)
