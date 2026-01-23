@@ -12,12 +12,12 @@ axiosInstance.interceptors.response.use(
     async error => {
         const originalRequest = error.config
 
-        if (error.response?.status === 500 && !originalRequest._retry) {
+        if (error.response?.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true
 
             try {
                 // Call refresh token endpoint
-                await axiosInstance.post('/users/refresh-token')
+                await axios.post('/users/refresh-token')
 
                 // Retry the original request with new token
                 return axiosInstance(originalRequest)
