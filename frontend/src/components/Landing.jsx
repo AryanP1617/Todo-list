@@ -32,7 +32,7 @@ function Landing() {
           <h1>TodoList App</h1>
         </div>
         <div className="navbarButtons">
-          ({()=>checkLogin()}):(
+          ({()=>checkLogin()})?(
             <button className='homeButton' onClick={()=>navigate('/home')}>Home</button>
           )
           :(
