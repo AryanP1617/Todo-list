@@ -23,7 +23,7 @@ function Landing() {
   },[])
 
   if (isLoggedIn === null) return null
-  }
+  
   
   return (
     <div className="landingContainer">
@@ -99,6 +99,6 @@ function Landing() {
       </footer>
     </div>
   )
-
+}
 
 export default Landing
