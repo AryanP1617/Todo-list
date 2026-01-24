@@ -22,7 +22,7 @@ function Landing() {
     checkLogin()
   },[])
 
-  if (isLoggedIn === null) return null
+  if (loggedIn === null) return null
   
   
   return (
