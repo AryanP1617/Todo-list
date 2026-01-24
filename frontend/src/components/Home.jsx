@@ -7,6 +7,7 @@ function Home(){
 
     const navigate=useNavigate()
     const logOut=async()=>{
+        console.log("Button clicked to logout")
         const response=await axiosInstance.post('/users/logout')
         if(response.data.success===true)
             navigate('/')
@@ -15,7 +16,7 @@ function Home(){
         <>
             <div id="wrapper">
                 <div id="features">
-                    <button id="logoutButton" onClick={()=>logOut}>Logout</button>
+                    <button id="logoutButton" onClick={()=>logOut()}>Logout</button>
                     <TaskList/>                     
                 </div>
                 
