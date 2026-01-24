@@ -31,7 +31,7 @@ function Landing() {
         <div className="navbarBrand">
           <h1>TodoList App</h1>
         </div>
-        <div className="navbarButtons">
+        <div className="navbarButtons">{
           ({()=>checkLogin()})?(
             <button className='homeButton' onClick={()=>navigate('/home')}>Home</button>
           )
@@ -48,7 +48,7 @@ function Landing() {
             >
               Sign Up
             </button>
-          )
+          )}
         </div>
       </nav>
 
