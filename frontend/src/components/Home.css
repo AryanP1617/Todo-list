@@ -1,7 +1,31 @@
-#body{
+#wrapper{
     background-color:#A8DF8E ;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+}
+
+#features{
+    display: flex;
+    flex-direction: column;
+    gap:2em
+}
+
+#logoutButton{
+    padding: 0.75rem 1.5rem;
+    align-self: flex-end;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    background-color: red;
+}
+
+#logoutButton:hover{
+    background-color: rgba(255, 0, 0, 0.729);
+    color: rgba(255, 255, 255, 0.589);
 }
