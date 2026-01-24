@@ -16,7 +16,7 @@ function Home(){
         <>
             <div id="wrapper">
                 <div id="features">
-                    <button id="logoutButton" onClick={()=>logOut()}>Logout</button>
+                    <button id="logoutButton" onClick={logOut}>Logout</button>
                     <TaskList/>                     
                 </div>
                 
