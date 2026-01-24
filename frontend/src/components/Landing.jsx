@@ -1,10 +1,19 @@
 import { useNavigate } from 'react-router-dom'
 import './Landing.css'
 import todoListImage from '../assets/todoListImage.jpg'
+import axiosInstance from "../utils/refresh.js"
 
 function Landing() {
   const navigate = useNavigate()
 
+  const checkLogin=async()=>{
+      const checkRefreshToken = async () => {
+  const res = await axiosInstance.post('/users/check-refresh')
+  return res.data?.data === true
+}
+
+  }
+  
   return (
     <div className="landingContainer">
       <nav className="navbar">
@@ -12,18 +21,23 @@ function Landing() {
           <h1>TodoList App</h1>
         </div>
         <div className="navbarButtons">
-          <button
-            className="btn btnSecondary"
-            onClick={() => navigate('/login')}
-          >
-            Login
-          </button>
-          <button
-            className="btn btnPrimary"
-            onClick={() => navigate('/register')}
-          >
-            Sign Up
-          </button>
+          ({()=>checkLogin()}):(
+            <button className='homeButton' onClick={()=>navigate('/home')}>Home</button>
+          )
+          :(
+            <button
+              className="btn btnSecondary"
+              onClick={() => navigate('/login')}
+            >
+              Login
+            </button>
+            <button
+              className="btn btnPrimary"
+              onClick={() => navigate('/register')}
+            >
+              Sign Up
+            </button>
+          )
         </div>
       </nav>
 

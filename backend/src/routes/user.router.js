@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { getUserDetails, getUserTasks, loginUser, logoutUser, refreshAccessToken, registerUser, updateUsername } from "../controllers/user.controller.js"
+import { getUserDetails, getUserTasks, loginUser, logoutUser, refreshAccessToken, registerUser, updateUsername, verifyRefreshToken } from "../controllers/user.controller.js"
 import { verifyJwt } from "../middlewares/auth.middleware.js"
 
 const user_router=Router()
@@ -11,4 +11,5 @@ user_router.route('/change-username').patch(verifyJwt,updateUsername)
 user_router.route('/refresh-token').post(refreshAccessToken)
 user_router.route('/get-user-details').get(verifyJwt,getUserDetails)
 user_router.route('/get-user-task').get(verifyJwt,getUserTasks)
+user_router.route('/check-refresh').post(verifyRefreshToken)
 export { user_router }
