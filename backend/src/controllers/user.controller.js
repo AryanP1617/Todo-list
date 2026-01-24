@@ -210,6 +210,25 @@ const getUserTasks=asyncHandler(async(req,res)=>{
     )
 })
 
+const verifyRefreshToken=asyncHandler(async(req,res)=>{
+    try {
+        const token=req.cookies?.refreshToken
+        if(!token)
+            throw new ApiError(400,"Unauthorised access")
+    
+        const decodedToken=await jwt.verify(token,process.env.REFRESH_TOKEN_SECRET)
+        if(!decodedToken)
+            throw new ApiError(401,"Token is expired")
+    
+        return res.status(200).json(
+            new ApiResponse(200,{},"Refresh token is valid!!!")
+        )
+
+    } catch (error) {
+        throw new ApiError(401,error?.message||"Something went wrong")
+    }
+})
+
 export {
     registerUser,
     loginUser,
@@ -217,5 +236,6 @@ export {
     updateUsername,
     refreshAccessToken,
     getUserDetails,
-    getUserTasks
+    getUserTasks,
+    verifyRefreshToken
 }
