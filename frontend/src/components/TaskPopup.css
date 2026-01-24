@@ -22,12 +22,55 @@
 #popupText{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
+    
 }
+
+#popupTitle,#popupDescription,#popupPriority{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    justify-content: center;    
+}
+
+#popupTaskDescription,#popupTaskTitle,#popupPriorityHeading{
+    display: flex;
+    justify-content: center;
+}
+
+#inputTaskDescription,#inputTaskTitle{
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(232, 220, 220);
+}
+
+#inputTaskDescription:focus,#inputTaskTitle:focus{
+    outline: none;
+}
+#popupActions{
+    margin-top: 4px;
+    display: flex;
+    justify-content: center;
+    gap:20px;
+}
+
+#popupSubmit,#popupClose{
+    border: none;
+    border-radius: 4px;
+    padding: 5px;
+    color:white;
+    background-color: blue;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 
 #popupPriorityButtons{
     display: flex;
-    gap:10px;
+    gap: 10px;
+    justify-content: center;
+    
 }
 
 #redButton{
@@ -39,6 +82,7 @@
     outline: none;
     cursor: pointer;
     background-color: rgba(242, 2, 2, 0.778);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 #redButton:checked{
@@ -54,6 +98,7 @@
     outline: none;
     cursor: pointer;
     background-color: rgba(0, 128, 0, 0.767);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 #greenButton:checked{
@@ -69,6 +114,7 @@
     outline: none;
     cursor: pointer;
     background-color: rgba(255, 255, 0, 0.763);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 #yellowButton:checked{

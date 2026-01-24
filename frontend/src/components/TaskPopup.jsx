@@ -41,8 +41,9 @@ function TaskPopup({isOpen,onSave,onClose}){
                             <input type='text' id='inputTaskDescription' name='inputTaskDescription'  placeholder='Enter description of task' value={description} onChange={(e)=>setDescription(e.target.value)}></input>
                         </div>
                          <div id="popupPriority">
+                            <h4 id='popupPriorityHeading'>Select priority</h4>
                             <div id ="popupPriorityButtons">
-                                <h4>Select priority</h4>
+                                
                                 <input type='radio' name='priority' id='redButton'value={1} checked={priority===1} onChange={()=>setPriority(1)} ></input>
                                 <input type='radio' name='priority' id='greenButton' value={2}checked={priority===2} onChange={()=>setPriority(2)}></input >
                                 <input type='radio' name='priority' id='yellowButton'value={3} checked={priority===3} onChange={()=>setPriority(3)}></input>
