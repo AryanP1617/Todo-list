@@ -32,22 +32,25 @@ function Landing() {
           <h1>TodoList App</h1>
         </div>
         <div className="navbarButtons">{
-          ({()=>checkLogin()})?(
+          loggedIn?(
+            
             <button className='homeButton' onClick={()=>navigate('/home')}>Home</button>
           )
           :(
-            <button
-              className="btn btnSecondary"
-              onClick={() => navigate('/login')}
-            >
-              Login
-            </button>
-            <button
-              className="btn btnPrimary"
-              onClick={() => navigate('/register')}
-            >
-              Sign Up
-            </button>
+            <>
+              <button
+                className="btn btnSecondary"
+                onClick={() => navigate('/login')}
+              >
+                Login
+              </button>
+              <button
+                className="btn btnPrimary"
+                onClick={() => navigate('/register')}
+              >
+                Sign Up
+              </button>
+            </>
           )}
         </div>
       </nav>
