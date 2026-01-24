@@ -2,16 +2,27 @@ import { useNavigate } from 'react-router-dom'
 import './Landing.css'
 import todoListImage from '../assets/todoListImage.jpg'
 import axiosInstance from "../utils/refresh.js"
+import { useEffect, useState } from 'react'
 
 function Landing() {
   const navigate = useNavigate()
 
-  const checkLogin=async()=>{
-      const checkRefreshToken = async () => {
-  const res = await axiosInstance.post('/users/check-refresh')
-  return res.data?.data === true
-}
+  const [loggedIn,setIsLoggedIn]=useState(null)
 
+  useEffect(()=>{
+    const checkLogin=async()=>{
+      try{
+        const res=await axiosInstance.post('/users/check-refresh')
+        setIsLoggedIn(res.data?.data===true)
+      }
+      catch{
+        setIsLoggedIn(false)
+      }
+    }
+    checkLogin()
+  },[])
+
+  if (isLoggedIn === null) return null
   }
   
   return (
@@ -88,6 +99,6 @@ function Landing() {
       </footer>
     </div>
   )
-}
+
 
 export default Landing
